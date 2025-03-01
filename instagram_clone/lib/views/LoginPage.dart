@@ -30,17 +30,18 @@ class _LoginPageState extends State<LoginPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                    Theme.of(context).brightness == Brightness.light
-                        ? 'assets/instagram_text.png' // Light mode image
-                        : 'assets/Instagram_text2.png', // Dark mode image
+                  Theme.of(context).brightness == Brightness.light
+                      ? 'assets/instagram_text.png' // Light mode image
+                      : 'assets/Instagram_text2.png', // Dark mode image
                   width: 250,
-                  ),
+                ),
                 const SizedBox(height: 20),
                 TextFormField(
                   controller: _emailController,
                   decoration: InputDecoration(
                     hintText: S.of(context).Email,
-                    hintStyle: const TextStyle(color: Colors.black, fontSize: 15),
+                    hintStyle:
+                        const TextStyle(color: Colors.black, fontSize: 15),
                     filled: true,
                     fillColor: const Color.fromARGB(255, 208, 204, 204),
                     border: OutlineInputBorder(
@@ -52,7 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                     if (value == null || value.isEmpty) {
                       return S.of(context).Email_is_required;
                     }
-                    if (!RegExp(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+                    if (!RegExp(
+                            r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
                         .hasMatch(value)) {
                       return S.of(context).Enter_a_valid_email;
                     }
@@ -64,7 +66,8 @@ class _LoginPageState extends State<LoginPage> {
                   controller: _passwordController,
                   decoration: InputDecoration(
                     hintText: S.of(context).Password,
-                    hintStyle: const TextStyle(color: Colors.black, fontSize: 15),
+                    hintStyle:
+                        const TextStyle(color: Colors.black, fontSize: 15),
                     filled: true,
                     fillColor: const Color.fromARGB(255, 208, 204, 204),
                     border: OutlineInputBorder(
@@ -78,68 +81,78 @@ class _LoginPageState extends State<LoginPage> {
                       return S.of(context).Password_is_required;
                     }
                     if (value.length < 6) {
-                      return S.of(context).Password_must_be_at_least_6_characters_long;
+                      return S
+                          .of(context)
+                          .Password_must_be_at_least_6_characters_long;
                     }
                     return null;
                   },
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Row(
-  mainAxisAlignment: MainAxisAlignment.end,
-  children: [
-    GestureDetector(
-      onTap: () async {
-        try {
-          await FirebaseAuth.instance.sendPasswordResetEmail(email: _emailController.text);
-          // Show dialog on success
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title:  Text(S.of(context).Success),
-                content:  Text(S.of(context).Password_must_be_at_least_6_characters_long),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                    child: Text(S.of(context).OK),
-                  ),
-                ],
-              );
-            },
-          );
-        } catch (e) {
-          // Show dialog on failure
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title:  Text(S.of(context).Error),
-                content: Text(S.of(context).Failed_to_send_password_reset_email),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop(); // Close the dialog
-                    },
-                    child:  Text(S.of(context).OK),
-                  ),
-                ],
-              );
-            },
-          );
-        }
-      },
-      child: Container(
-        child:  Text(
-          S.of(context).Forget_Password,
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-      ),
-    ),
-  ],
-),
-
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        try {
+                          await FirebaseAuth.instance.sendPasswordResetEmail(
+                              email: _emailController.text);
+                          // Show dialog on success
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(S.of(context).Success),
+                                content: Text(S
+                                    .of(context)
+                                    .Check_your_email_to_change_password),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                    child: Text(S.of(context).OK),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        } catch (e) {
+                          // Show dialog on failure
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(S.of(context).Error),
+                                content: Text(S
+                                    .of(context)
+                                    .Failed_to_send_password_reset_email),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
+                                    },
+                                    child: Text(S.of(context).OK),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                      child: Container(
+                        child: Text(
+                          S.of(context).Forget_Password,
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
                 const SizedBox(height: 80),
                 _isLoading
                     ? const CircularProgressIndicator()
@@ -150,7 +163,8 @@ class _LoginPageState extends State<LoginPage> {
                               _isLoading = true;
                             });
                             try {
-                              await FirebaseAuth.instance.signInWithEmailAndPassword(
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
                                 email: _emailController.text.trim(),
                                 password: _passwordController.text.trim(),
                               );
@@ -167,11 +181,13 @@ class _LoginPageState extends State<LoginPage> {
                               });
                               String errorMessage;
                               if (e.code == S.of(context).User_not_found) {
-                                errorMessage = S.of(context).No_user_found_for_that_email;
+                                errorMessage =
+                                    S.of(context).No_user_found_for_that_email;
                               } else if (e.code == 'wrong-password') {
-                                errorMessage = S.of(context).Wrong_password_provided;
+                                errorMessage =
+                                    S.of(context).Wrong_password_provided;
                               } else {
-                                errorMessage = S.of(context).An_error_occurred;
+                                errorMessage = S.of(context).Wrong_password_provided;
                               }
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(content: Text(errorMessage)),
@@ -186,11 +202,12 @@ class _LoginPageState extends State<LoginPage> {
                             color: const Color.fromARGB(255, 44, 171, 235),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child:  Center(
+                          child: Center(
                             child: Text(
                               S.of(context).Login,
                               style: TextStyle(
-                                  color: Colors.white, fontWeight: FontWeight.bold),
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
                         ),
@@ -199,7 +216,7 @@ class _LoginPageState extends State<LoginPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                     Text(
+                    Text(
                       S.of(context).Do_not_have_an_email,
                       style: TextStyle(),
                     ),
@@ -212,10 +229,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         );
                       },
-                      child:  Text(
+                      child: Text(
                         S.of(context).Sign_up,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ],

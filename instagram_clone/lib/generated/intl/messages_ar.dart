@@ -39,6 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Camera": MessageLookupByLibrary.simpleMessage("الكاميرا"),
     "Cancel": MessageLookupByLibrary.simpleMessage("الغاء"),
+    "Check_your_email_to_change_password": MessageLookupByLibrary.simpleMessage(
+      "برجاء التحقق من بريدك الالكتروني لتغيير كلمة المرور الخاصه بك",
+    ),
     "Comments": MessageLookupByLibrary.simpleMessage("التعليقات"),
     "Create_a_new_post": MessageLookupByLibrary.simpleMessage(
       " انشئ منشور جديد ",

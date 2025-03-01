@@ -34,6 +34,7 @@ class _EditProfileState extends State<EditProfile> {
     fetchUserData();
   }
 
+// In fetchUserData method, add this modification:
   Future<void> fetchUserData() async {
     final userId = _auth.currentUser?.uid;
     if (userId != null) {
@@ -44,9 +45,18 @@ class _EditProfileState extends State<EditProfile> {
           fullNameController.text = data['fullName'];
           usernameController.text = data['username'];
           phoneNumberController.text = data['phoneNumber'].toString();
-          selectedGender = data['gender']; // Set the initial gender value
-          descriptionController.text =
-              data['description'] ?? ''; // Fetch description
+
+          // Normalize the gender value to match one in the dropdown list
+          String dbGender = data['gender'] ?? '';
+          if (dbGender.toLowerCase() == 'male') {
+            selectedGender = 'Male';
+          } else if (dbGender.toLowerCase() == 'female') {
+            selectedGender = 'Female';
+          } else {
+            selectedGender = null; // If it doesn't match any option
+          }
+
+          descriptionController.text = data['description'] ?? '';
         });
       }
     }
@@ -77,8 +87,8 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:
-             Text( S.of(context).Edit_Profile, style: TextStyle(color: Colors.white)),
+        title: Text(S.of(context).Edit_Profile,
+            style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
@@ -135,7 +145,9 @@ class _EditProfileState extends State<EditProfile> {
             const SizedBox(height: 20),
             // Gender Dropdown
             DropdownButtonFormField<String>(
-              value: selectedGender, // Current selected value
+              value: genderOptions.contains(selectedGender)
+                  ? selectedGender
+                  : null,
               decoration: InputDecoration(
                 labelText: S.of(context).Gender,
                 border: OutlineInputBorder(
@@ -172,9 +184,12 @@ class _EditProfileState extends State<EditProfile> {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              child:  Text(
+              child: Text(
                 S.of(context).Save_Changes,
-                style: TextStyle(fontSize: 16, color: Colors.grey,fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ],

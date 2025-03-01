@@ -43,6 +43,9 @@ class MessageLookup extends MessageLookupByLibrary {
         ),
     "Camera": MessageLookupByLibrary.simpleMessage("Camera"),
     "Cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "Check_your_email_to_change_password": MessageLookupByLibrary.simpleMessage(
+      "Check your email to change password",
+    ),
     "Comments": MessageLookupByLibrary.simpleMessage("Comments"),
     "Create_a_new_post": MessageLookupByLibrary.simpleMessage(
       "Create a new post",

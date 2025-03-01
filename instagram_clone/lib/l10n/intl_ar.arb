@@ -124,6 +124,7 @@
     "You_have_unread_messages" : " لديك رسائل غير مقروءة ",
     "View" : " عرض ",
     "Add_Image_Story" : " اضافة قصة صورة",
-    "Add_Text_Story" : " اضافة قصة نص"
+    "Add_Text_Story" : " اضافة قصة نص",
+    "Check_your_email_to_change_password" : "برجاء التحقق من بريدك الالكتروني لتغيير كلمة المرور الخاصه بك"
 
 }

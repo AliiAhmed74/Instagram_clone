@@ -1053,6 +1053,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Check your email to change password`
+  String get Check_your_email_to_change_password {
+    return Intl.message(
+      'Check your email to change password',
+      name: 'Check_your_email_to_change_password',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
